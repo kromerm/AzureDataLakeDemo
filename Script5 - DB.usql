@@ -1,0 +1,65 @@
+﻿@projects =
+    EXTRACT id int,
+            url string,
+            owner_id int?,
+            name string,
+            descriptor string,
+            language string,
+            created_a DateTime,
+            forked_from int?,
+            deleted int?,
+            updated_a DateTime?
+    FROM @"/SmallFiles/projectssmall.csv"
+    USING Extractors.Csv();
+
+DROP DATABASE IF EXISTS makromer;
+CREATE DATABASE makromer;
+USE DATABASE makromer;
+
+DROP TABLE IF EXISTS Projects;
+
+CREATE TABLE Projects
+(
+    id int,
+    url string,
+    owner_id int?,
+    name string,
+    descriptor string,
+    language string,
+    created DateTime,
+    forked_from int?,
+    deleted int?,
+    updated DateTime?,
+    INDEX projects_idx CLUSTERED (id ASC)
+         PARTITIONED BY HASH (created)
+);
+
+INSERT INTO Projects
+SELECT *
+FROM @projects;
+
+@users =
+    EXTRACT id int,
+            login string,
+            name string,
+            company string,
+            city_country string,
+            email string,
+            created DateTime?,
+            type string,
+            fake int?,
+            deleted int?,
+            longitude decimal?,
+            latitude decimal?,
+            country_code string,
+            state string,
+            city string
+    FROM @"/smallfiles/userssmall.csv"
+    USING Extractors.Csv(quoting: true);
+
+CREATE TABLE Users
+(
+     INDEX users_idx CLUSTERED (id ASC)
+     PARTITIONED BY HASH (created)
+) AS SELECT * FROM @users;
+

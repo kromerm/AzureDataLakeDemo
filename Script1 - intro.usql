@@ -1,0 +1,33 @@
+﻿/*
+Read data from the GitHub project and write it back out as an ordered dataset basec on the updated column.
+The purpose here is to get used to the basics of extracting and outputting data with U-SQL.
+This U-SQL script has no transformation step. It reads from an input file, schematizes the data during the read process, and then outputs the intermediate rowset back into the file whose name you specified. The id field could be null or of type int, while the url field cannot be null. Note that the C# string type is always nullable.
+This script illustrates the following concepts:
+Rowset variables. Each query expression that produces a rowset can be assigned to a variable. Variables in U-SQL follow the T-SQL variable naming pattern of an ampersand (@) followed by a name (@searchlog in this case). Note that the assignment statement does not execute the query. It merely names the expression and gives you the ability to build-up more complex expressions.
+The EXTRACT keyword. This gives you the ability to define a schema as part of a read operation. For each column, the schema specifies a paired value consisting of a column name and a C# type name. It uses a so-called extractor, which can be created or customized by the user. However, in this case we are using the built-in Tsv (tab-separated value) extractor that is provided by the Extractors class, since the input data is not comma but TAB separated.
+The OUTPUT keyword. This takes a rowset and serializes it as a comma-separated file into the specified location. Like extractors, outputters can be created or customized by the user. However, in this case we are using the built-in Csv (comma-separated value) outputter provided by the Outputters class.
+*/
+
+@projects =
+    EXTRACT id int?,
+            url string,
+            owner_id int?,
+            name string,
+            descriptor string,
+            language string,
+            created_a DateTime?,
+            forked_from int?,
+            deleted int?,
+            updated_a DateTime?
+    FROM @"/SmallFiles/projectssmall.csv"
+    USING Extractors.Csv();
+
+@projects =
+    SELECT *
+    FROM @projects;
+
+
+OUTPUT @projects
+TO @"/output/projectsordered.csv"
+ORDER BY updated_a ASC
+USING Outputters.Csv();

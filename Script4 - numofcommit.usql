@@ -1,0 +1,48 @@
+﻿//Initial parameters for constants
+DECLARE @INPUTDIR string = "/SmallFiles/";
+
+DECLARE @INPUT_PROJECTS string = @INPUTDIR + "projectssmall.csv";
+DECLARE @INPUT_COMMITS string = @INPUTDIR + "commitssmall.csv";
+
+DECLARE @OUTPUTDIR string = "/output/";
+DECLARE @OUTPUT string = @OUTPUTDIR + " NumberOfCommitters.csv";
+
+@projects =
+    EXTRACT id int?,
+            url string,
+            owner_id int?,
+            name string,
+            descriptor string,
+            language string,
+            created_a DateTime?,
+            forked_from int?,
+            deleted int?,
+            updated_a DateTime?
+    FROM @INPUT_PROJECTS
+    USING Extractors.Csv();
+
+
+@commits =
+    EXTRACT id int?,
+            sha string,
+            author_id int?,
+            committer int?,
+            project_id int?,
+            created DateTime? 
+    FROM @INPUT_COMMITS
+    USING Extractors.Csv();
+
+@result_set =
+    SELECT p.name,
+           COUNT(c.id) AS NumberOfCommitters
+    FROM @projects AS p
+         JOIN
+             @commits AS c
+         ON c.project_id == p.id
+    GROUP BY p.name;
+              
+
+ OUTPUT @result_set 
+    TO @OUTPUT
+ ORDER BY NumberOfCommitters DESC
+    USING Outputters.Csv();

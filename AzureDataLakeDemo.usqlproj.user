@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <StartFile>Script4 - numofcommit.usql</StartFile>
+    <ActiveFile>Script2 - count.usql</ActiveFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ScriptUserData Include="Script1 - intro.usql">
+      <UseLocalComputeAccount>true</UseLocalComputeAccount>
+      <LocalComputeAccount>LocalCA:localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+    </ScriptUserData>
+    <ScriptUserData Include="Script2 - count.usql">
+      <UseLocalComputeAccount>true</UseLocalComputeAccount>
+      <LocalComputeAccount>LocalCA:localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+    </ScriptUserData>
+    <ScriptUserData Include="Script3 - count w vars.usql">
+      <UseLocalComputeAccount>true</UseLocalComputeAccount>
+      <LocalComputeAccount>LocalCA:localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+    </ScriptUserData>
+    <ScriptUserData Include="Script4 - numofcommit.usql">
+      <UseLocalComputeAccount>true</UseLocalComputeAccount>
+      <LocalComputeAccount>LocalCA:localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+    </ScriptUserData>
+    <ScriptUserData Include="Script5 - DB.usql">
+      <UseLocalComputeAccount>true</UseLocalComputeAccount>
+      <LocalComputeAccount>LocalCA:localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+    </ScriptUserData>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,53 @@
+﻿//Before we load data into tables, we will often want to examine the data and relationships between datasets.
+//In this exercise, we will be extracting two datasets and applying a basic aggregation to them for analysis.
+//The ability to get answers before we’ve loaded the data into tables or operationalized it in any way is on
+//of the main benefits of U-SQL.  In this case we are looking to get the number of project users by country.
+
+@projects =
+    EXTRACT id int?,
+            url string,
+            owner_id int?,
+            name string,
+            descriptor string,
+            language string,
+            created_a DateTime?,
+            forked_from int?,
+            deleted int?,
+            updated_a DateTime?
+    FROM "/SmallFiles/projectssmall.csv"
+    USING Extractors.Csv();
+
+@users =
+    EXTRACT id int?,
+            login string,
+            name string,
+            company string,
+            city_country string,
+            email string,
+            created DateTime?,
+            type string,
+            fake int?,
+            deleted int?, 
+            longitude decimal?,
+            latitude decimal?,
+            country_code string,
+            state string,
+            city string
+    FROM "/SmallFiles/userssmall.csv"
+    USING Extractors.Csv();
+
+@result_set =
+    SELECT p.name,
+           u.country_code,
+           COUNT(u.id) AS NumberOfUsers
+    FROM @projects AS p
+         JOIN
+             @users AS u
+         ON u.id == p.owner_id
+    GROUP BY p.name,
+             u.country_code; 
+                           
+ OUTPUT @result_set 
+    TO "/output/CountofProjectUsersbyCountry.csv"
+ ORDER BY NumberOfUsers DESC
+    USING Outputters.Csv();

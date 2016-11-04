@@ -1,0 +1,12 @@
+﻿
+DROP CREDENTIAL IF EXISTS GitHub_Secret;
+// Now create the credential based on the key store secret
+CREATE CREDENTIAL GitHub_Secret WITH USER_NAME = "username", IDENTITY = "Github_Secret";
+
+// Create External Data source on AZURESQLDB
+CREATE DATA SOURCE IF NOT EXISTS GitHubDB
+  FROM AZURESQLDB WITH
+       ( PROVIDER_STRING = "Database=sqldb001.database.windows.net;Trusted_Connection=False;Encrypt=True"
+       , CREDENTIAL = GitHub_Secret
+       , REMOTABLE_TYPES = (bool, byte, sbyte, short, ushort, int, uint, long, ulong, decimal, float, double, string, DateTime)
+       );

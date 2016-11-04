@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>6ae93d79-b267-4907-952e-6c9ae0ba0459</ProjectGuid>
+    <OutputType>File</OutputType>
+    <AssemblyName>Algebra.xml</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <Name>AzureDataLakeDemo</Name>
+    <RootNamespace>makromerdemousql001</RootNamespace>
+    <RuntimeVersion>default</RuntimeVersion>
+    <OutputStreamPath>C:\LocalRunDataRoot</OutputStreamPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Script Include="Script1 - intro.usql">
+      <UseLocalComputeAccount>true</UseLocalComputeAccount>
+      <LocalComputeAccount>localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+    </Script>
+    <Script Include="Script2 - count.usql">
+      <UseLocalComputeAccount>true</UseLocalComputeAccount>
+      <LocalComputeAccount>localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+    </Script>
+    <Script Include="Script3 - count w vars.usql">
+      <UseLocalComputeAccount>true</UseLocalComputeAccount>
+      <LocalComputeAccount>localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+    </Script>
+    <Script Include="Script4 - numofcommit.usql">
+      <UseLocalComputeAccount>true</UseLocalComputeAccount>
+      <LocalComputeAccount>localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+    </Script>
+    <Script Include="Script5 - DB.usql">
+      <UseLocalComputeAccount>true</UseLocalComputeAccount>
+      <LocalComputeAccount>localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+    </Script>
+    <Script Include="Script6 - external DB.usql">
+      <UseLocalComputeAccount>false</UseLocalComputeAccount>
+      <LocalComputeAccount>localcomputeaccount</LocalComputeAccount>
+      <LocalDatabase>master</LocalDatabase>
+      <LocalSchema>dbo</LocalSchema>
+      <ClusterComputeAccount>makromer</ClusterComputeAccount>
+      <ClusterDatabase>master</ClusterDatabase>
+      <ClusterSchema>dbo</ClusterSchema>
+    </Script>
+    <ScriptCode Include="Script1 - intro.usql.cs">
+      <DependentUpon>Script1 - intro.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Script2 - count.usql.cs">
+      <DependentUpon>Script2 - count.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Script3 - count w vars.usql.cs">
+      <DependentUpon>Script3 - count w vars.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Script4 - numofcommit.usql.cs">
+      <DependentUpon>Script4 - numofcommit.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Script5 - DB.usql.cs">
+      <DependentUpon>Script5 - DB.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Script6 - external DB.usql.cs">
+      <DependentUpon>Script6 - external DB.usql</DependentUpon>
+    </ScriptCode>
+  </ItemGroup>
+  <Import Project="$(AppData)\Microsoft\DataLake\MsBuild\1.0\Usql.targets" />
+  <PropertyGroup>
+  </PropertyGroup>
+</Project>
